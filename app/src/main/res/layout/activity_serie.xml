@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
+    android:padding="5dp"
+    tools:context=".SerieActivity">
+    <EditText
         android:id="@+id/nomeSerieTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -13,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <TextView
+    <EditText
         android:id="@+id/anoLancamentoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeSerieTv"
         />
-    <TextView
+    <EditText
         android:id="@+id/emissoraTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/anoLancamentoTv"
         />
-    <TextView
+    <EditText
         android:id="@+id/generoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,5 +45,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emissoraTv"
+        />
+    <Button
+        android:id="@+id/salvarSerieBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generoTv"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
