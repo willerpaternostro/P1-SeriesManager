@@ -9,61 +9,60 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.seriesmanager.adapter.SerieRvAdapter
 import com.example.seriesmanager.adapter.SeriesAdapter
 import com.example.seriesmanager.databinding.ActivityMainBinding
 import com.example.seriesmanager.model.Serie
 
-class MainActivity : AppCompatActivity() {
+/*PARA VINCULAR O RECYCLERVIEW AQUI é PRECISO IMPLEMENTAR A INTERFACE OnSerieClickListener, assim como seu método onSerieClick*/
+class MainActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras{
-        // const faz a variável ser estática o que permite utilizar em outra classe sem método de acesso activity.EXTRA_SERIE
         const val EXTRA_SERIE = "EXTRA_SERIE"
         const val EXTRA_POSICAO = "EXTRA_POSICAO"
     }
+
     private val activityMainBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
+
     private lateinit var editarSerieActivityResultLauncher: ActivityResultLauncher<Intent>
 
-
+    //Data source
     private val seriesList: MutableList<Serie> = mutableListOf()
 
-    /* ADAPTER PADRÃO - Esse é um adapter pronto que utiliza um layout padrão simple_list_item_1
-        private val seriesAdapter: ArrayAdapter<String> by lazy{
-            val seriesStringList = mutableListOf<String>()
-            seriesList.forEach { serie -> seriesStringList.add(serie.toString())}
-            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, seriesStringList)
-        }
-    */
-    // ADAPTER CUSTOMIZADO
-    private val seriesAdapter: SeriesAdapter by lazy{
-        SeriesAdapter(this, R.layout.layout_serie, seriesList)
+    // ADAPTER CUSTOMIZADO RECYCLERVIEW
+    private val seriesAdapter: SerieRvAdapter by lazy{
+        SerieRvAdapter(this,seriesList)
     }
+    /* No RecyclerView é necessário um LayoutManager*/
+    private val  serieLayoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
+        //inicializarSeriesList()
 
-        inicializarSeriesList()
-
-        //Associando o Adapter ao ListView
-        activityMainBinding.listaSerieslv.adapter = seriesAdapter
-
-        //Registrando o menu de contexto na View que queremos utilizá-lo
-        registerForContextMenu(activityMainBinding.listaSerieslv)
+        //Associando o Adapter E LayoutManager ao RecyclerView
+        activityMainBinding.listaSeriesRv.adapter = seriesAdapter
+        activityMainBinding.listaSeriesRv.layoutManager = serieLayoutManager
 
         serieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ resultado ->
             if(resultado.resultCode == RESULT_OK){ //"data" são os valores da Intent PaginaCadastro da Série
                 resultado.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
-                    seriesAdapter.add(this) // Adicionando no ListView
-                    //Poderia também adicionar diretamente na fonte de dados e notificar o Adapter
-                    //seriesList.add(this)
-                    //seriesAdapter.notifyDataSetChanged()
+                    //  A adição no recyclerView não pode ser feito no adapter, apenas desse jeito
+                    seriesList.add(this)
+                    seriesAdapter.notifyDataSetChanged()
                 }
             }
         }
-
         editarSerieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ resultado ->
             if(resultado.resultCode == RESULT_OK){
                 val posicao = resultado.data?.getIntExtra(EXTRA_POSICAO, -1)
@@ -81,28 +80,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        //TRATANDO O CLICK
-        activityMainBinding.listaSerieslv.setOnItemClickListener{adapterView, view, posicao, id ->
-            //AQUI VAI REDIRECIONAR PARA PÁGINA TEMPORADAS
-            val serie = seriesList[posicao]
-            //val consultarTemporada = Intent(this, TemporadasActivity::class.java)
-            //startActivity((consultarTemporada))
-        }
     }
 
-    private fun inicializarSeriesList(){
-        for(indice in 1..10){
-            seriesList.add(
-                Serie(
-                    "Série ${indice}",
-                     "200${indice}",
-                    "Emissora${indice}",
-                    "Gênero ${indice}"
-                )
-            )
-        }
-    }
+
 
     /* Criação menu Action Bar*/
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -121,23 +101,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /*CRIAÇÃO DO MENU DE CONTEXTO*/
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.context_menu_main, menu)
-    }
-
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
         /* O parâmetro 'item' não traz a posição do mesmo na lista onde estava
         * para conseguir a posição é preciso utilizar uma classe de contexto  chamada 'ContextMenuInfo' para fazer o casting
         * com o 'AdapterContextMenuInfo' para recuperar a posição do item do parâmetro
         */
-        val posicao = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        val posicao = seriesAdapter.posicao
 
         return when (item.itemId){
             R.id.editarSerieMi -> {
@@ -158,5 +127,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    override fun onSerieClick(posicao: Int) {
+        //AQUI VAI REDIRECIONAR PARA PÁGINA TEMPORADAS
+        val serie = seriesList[posicao]
+        //val consultarTemporada = Intent(this, TemporadasActivity::class.java)
+        //startActivity((consultarTemporada))
+    }
 }
