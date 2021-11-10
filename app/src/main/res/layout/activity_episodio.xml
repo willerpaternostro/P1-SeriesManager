@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="5dp"
-    tools:context=".SerieActivity">
+    tools:context=".EpisodioActivity">
 
     <TextView
         android:id="@+id/nomeTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/nomeSerie"
+        android:text="@string/nomeEpisodio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -28,61 +28,53 @@
         android:enabled="true"/>
 
     <TextView
-        android:id="@+id/anoLancamentoTv"
+        android:id="@+id/numeroSequencialTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/anoLancamento"
+        android:text="@string/numeroSequencial"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nomeEt"/>
 
     <EditText
-        android:id="@+id/anoLancamentoEt"
+        android:id="@+id/numeroSequencialEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anoLancamentoTv"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv"
         android:enabled="true"/>
 
     <TextView
-        android:id="@+id/emissoraTv"
+        android:id="@+id/duracaoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/emissoraSerie"
+        android:text="@string/duracaoEpisodio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt"/>
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEt"/>
 
     <EditText
-        android:id="@+id/emissoraEt"
+        android:id="@+id/duracaoEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emissoraTv"
+        app:layout_constraintTop_toBottomOf="@id/duracaoTv"
         android:enabled="true"/>
 
-    <TextView
-        android:id="@+id/generoTv"
+    <CheckBox
+        android:id="@+id/vistoCb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/generoSerie"
+        android:text="@string/vistoEpisodio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emissoraEt"/>
-
-    <Spinner
-        android:id="@+id/generoSp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generoTv"/>
+        app:layout_constraintTop_toBottomOf="@id/duracaoEt"/>
 
     <Button
         android:id="@+id/salvarBt"
@@ -91,6 +83,6 @@
         android:text="@string/btnVoltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generoSp"/>
+        app:layout_constraintTop_toBottomOf="@id/vistoCb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

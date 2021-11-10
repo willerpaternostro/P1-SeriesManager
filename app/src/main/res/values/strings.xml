@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">SeriesManager</string>
+
+    <string name="nomeSerie">Nome</string>
+    <string name="emissoraSerie">Emissora</string>
+    <string name="generoSerie">Genero</string>
+    <string name="numeroSequencial">Número sequencial</string>
+    <string name="anoLancamento">Ano de lançamento</string>
+
+    <string name="nomeEpisodio">Nome Episódio</string>
+    <string name="vistoEpisodio">visto?</string>
+    <string name="duracaoEpisodio">Duração</string>
+
+    <string name="removerSerie">Excluir Série</string>
+    <string name="removerTemporada">Excluir Temporada</string>
+    <string name="removerEpisodio">Excluir Episódio</string>
+
+    <string name="btnVoltar">Salvar</string>
+    <string name="adicionarSerieFb">Adicionar série</string>
+    <string name="addEpisodioFb">Adicionar Episósdio</string>
+    <string name="editarEpisodio">Editar Episódio</string>
 </resources>

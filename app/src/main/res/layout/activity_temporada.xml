@@ -5,26 +5,26 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="5dp"
-    tools:context=".SerieActivity">
+    tools:context=".TemporadaActivity">
 
     <TextView
-        android:id="@+id/nomeTv"
+        android:id="@+id/numeroSequencialEpisodioTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/nomeSerie"
+        android:text="@string/numeroSequencial"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
-        android:id="@+id/nomeEt"
+        android:id="@+id/numeroSequencialEpisodioEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomeTv"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEpisodioTv"
         android:enabled="true"/>
 
     <TextView
@@ -34,7 +34,7 @@
         android:text="@string/anoLancamento"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomeEt"/>
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEpisodioEt"/>
 
     <EditText
         android:id="@+id/anoLancamentoEt"
@@ -47,43 +47,6 @@
         app:layout_constraintTop_toBottomOf="@id/anoLancamentoTv"
         android:enabled="true"/>
 
-    <TextView
-        android:id="@+id/emissoraTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/emissoraSerie"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt"/>
-
-    <EditText
-        android:id="@+id/emissoraEt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emissoraTv"
-        android:enabled="true"/>
-
-    <TextView
-        android:id="@+id/generoTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/generoSerie"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emissoraEt"/>
-
-    <Spinner
-        android:id="@+id/generoSp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generoTv"/>
-
     <Button
         android:id="@+id/salvarBt"
         android:layout_width="match_parent"
@@ -91,6 +54,6 @@
         android:text="@string/btnVoltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generoSp"/>
+        app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,44 +8,31 @@
     android:background="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/nomeTv"
+        android:id="@+id/temporadaFixo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/nomeSerie"
+        android:text="Temporada"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/anoLancamentoTv"
+        app:layout_constraintEnd_toEndOf="@+id/numeroSequencialTv"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/numeroSequencialTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:text="@string/numeroSequencial"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/anoLancamentoTv"
         android:layout_width="0dp"
-        android:textSize="20dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:text="@string/anoLancamento"
-        app:layout_constraintStart_toEndOf="@+id/nomeTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/emissoraTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/emissoraSerie"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/generoTv"
-        app:layout_constraintTop_toBottomOf="@+id/nomeTv"/>
-
-    <TextView
-        android:id="@+id/generoTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/generoSerie"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@id/emissoraTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anoLancamentoTv"/>
+        app:layout_constraintTop_toBottomOf="@+id/temporadaFixo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
