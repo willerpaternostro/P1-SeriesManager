@@ -10,10 +10,8 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class EpisodioFirebase(temporada:Temporada): EpisodioDao {
-    companion object {
-        private val BD_SERIES_MANAGER = "episodios"
-    }
-    private val episodioRTDB = Firebase.database.getReference(temporada.nomeSerie + temporada.numeroSequencial)
+
+    private val episodioRTDB = Firebase.database.getReference("Episodio "+ temporada.numeroSequencial + temporada.nomeSerie )
     private val episodioList: MutableList<Episodio> = mutableListOf()
 
     init{
@@ -62,7 +60,7 @@ class EpisodioFirebase(temporada:Temporada): EpisodioDao {
         criarOuAtualizarEpisodio(episodio)
         return 0L
     }
-    override fun recuperarEpisodios(temporadaId: Int): MutableList<Episodio> = episodioList
+    override fun recuperarEpisodios(): MutableList<Episodio> = episodioList
     override fun recuperarEpisodio(numeroSequencial: Int, temporadaId: Int): Episodio? {
         return null
     }
@@ -70,7 +68,7 @@ class EpisodioFirebase(temporada:Temporada): EpisodioDao {
         criarOuAtualizarEpisodio(episodio)
         return 1
     }
-    override fun removerEpisodio(temporadaId: Int, numeroSequencial: Int): Int {
+    override fun removerEpisodio(nomeEpisodio: String, numeroSequencial: Int): Int {
         return 1
     }
 

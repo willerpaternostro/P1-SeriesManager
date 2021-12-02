@@ -29,7 +29,7 @@ class MainTemporadaActivity : AppCompatActivity(), OnTemporadaClickListener {
     private val activityMainTemporadaBinding: ActivityMainTemporadaBinding by lazy { ActivityMainTemporadaBinding.inflate(layoutInflater) }
     private lateinit var temporadaActivityResultLauncher: ActivityResultLauncher<Intent>
 
-    private val temporadaController: TemporadaController by lazy { TemporadaController(this) }
+    private val temporadaController: TemporadaController by lazy { TemporadaController(serie) }
     private val temporadaList: MutableList<Temporada> by lazy { temporadaController.buscarTemporadas(serie.nome) }
     private val temporadaAdapter: TemporadaRvAdapter by lazy { TemporadaRvAdapter(this, temporadaList) }
     private val temporadaLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }

@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeriesManager">
+        <activity android:name=".CadastrarUsuarioActivity"></activity>
+        <activity android:name=".RecuperarSenhaActivity" />
+        <activity android:name=".AutenticacaoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".EpisodioActivity"
             android:exported="true" />
@@ -26,11 +35,7 @@
             android:exported="true" />
         <activity
             android:name=".MainSerieActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
+
 </manifest>

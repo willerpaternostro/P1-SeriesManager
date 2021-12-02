@@ -9,10 +9,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.seriesmanager.MainTemporadaActivity.Extras.EXTRA_TEMPORADA_ID
+import com.example.seriesmanager.MainTemporadaActivity.Extras.EXTRA_TEMPORADA
+import com.example.seriesmanager.MainSerieActivity.Extras.EXTRA_SERIE
 import com.example.seriesmanager.adapter.EpisodioRvAdapter
 import com.example.seriesmanager.controller.EpisodioController
 import com.example.seriesmanager.databinding.ActivityMainEpisodioBinding
 import com.example.seriesmanager.model.Episodio
+import com.example.seriesmanager.model.Serie
+import com.example.seriesmanager.model.Temporada
 import com.google.android.material.snackbar.Snackbar
 
 class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
@@ -21,13 +25,17 @@ class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
         const val EXTRA_EPISODIO_POSICAO = "EXTRA_EPISODIO_POSICAO"
     }
 
-    private var temporadaId: Int = 0
+    //private var temporadaId: Int = 0
+    private lateinit var temporada: Temporada
+    private lateinit var serie: Serie
 
     private val activityMainEpisodioBinding: ActivityMainEpisodioBinding by lazy { ActivityMainEpisodioBinding.inflate(layoutInflater) }
     private lateinit var episodioActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var editarEpisodioActivityResultLauncher: ActivityResultLauncher<Intent>
-    private val episodioController: EpisodioController by lazy { EpisodioController(this) }
-    private val episodioList: MutableList<Episodio> by lazy { episodioController.buscarEpisodios(temporadaId) }
+
+    private val episodioController: EpisodioController by lazy { EpisodioController(temporada) }
+    private val episodioList: MutableList<Episodio> by lazy { episodioController.buscarEpisodios() }
+
     private val episodioAdapter: EpisodioRvAdapter by lazy { EpisodioRvAdapter(this, episodioList) }
     private val episodioLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
 
@@ -35,7 +43,9 @@ class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
         super.onCreate(savedInstanceState)
         setContentView(activityMainEpisodioBinding.root)
 
-        temporadaId = intent.getIntExtra(EXTRA_TEMPORADA_ID, -1)
+        //temporadaId = intent.getIntExtra(EXTRA_TEMPORADA_ID, -1)
+        temporada = intent.getParcelableExtra<Temporada>(EXTRA_TEMPORADA)!!
+        serie = intent.getParcelableExtra<Serie>(EXTRA_SERIE)!!
 
         activityMainEpisodioBinding.EpisodiosRv.adapter = episodioAdapter
         activityMainEpisodioBinding.EpisodiosRv.layoutManager = episodioLayoutManager
@@ -65,7 +75,7 @@ class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
 
         activityMainEpisodioBinding.adicionarEpisodioFb.setOnClickListener {
             val addEpisodioIntent = Intent(this, EpisodioActivity::class.java)
-            addEpisodioIntent.putExtra(EXTRA_TEMPORADA_ID, temporadaId)
+            addEpisodioIntent.putExtra(EXTRA_TEMPORADA_ID, temporada.numeroSequencial)
             episodioActivityResultLauncher.launch(addEpisodioIntent)
         }
     }
@@ -86,7 +96,7 @@ class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
                 with(AlertDialog.Builder(this)) {
                     setMessage("Confirmar remoção?")
                     setPositiveButton("Sim") { _, _ ->
-                        episodioController.apagarEpisodio(temporadaId, episodio.numeroSequencial)
+                        episodioController.apagarEpisodio(episodio.nome, episodio.numeroSequencial)
                         episodioList.removeAt(posicao)
                         episodioAdapter.notifyDataSetChanged()
                         Snackbar.make(activityMainEpisodioBinding.root, "Episódio removida", Snackbar.LENGTH_SHORT).show()
@@ -102,11 +112,11 @@ class MainEpisodioActivity : AppCompatActivity(), OnEpisodioClickListener {
     }
 
     override fun onEpisodioClick(posicao: Int) {
-        temporadaId = intent.getIntExtra(EXTRA_TEMPORADA_ID, -1)
+        //temporadaId = intent.getIntExtra(EXTRA_TEMPORADA_ID, -1)
         val episodio = episodioList[posicao]
         val consultarEpisodioIntent = Intent(this, EpisodioActivity::class.java)
         consultarEpisodioIntent.putExtra(EXTRA_EPISODIO, episodio)
-        consultarEpisodioIntent.putExtra(EXTRA_TEMPORADA_ID, temporadaId)
+       // consultarEpisodioIntent.putExtra(EXTRA_TEMPORADA_ID, temporadaId)
         startActivity(consultarEpisodioIntent)
     }
 }

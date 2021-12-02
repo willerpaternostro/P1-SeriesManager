@@ -19,7 +19,9 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
         const val EXTRA_SERIE = "EXTRA_SERIE"
         const val EXTRA_SERIE_POSICAO = "EXTRA_SERIE_POSICAO"
     }
+
     private val activityMainSerieBinding: ActivityMainSerieBinding by lazy { ActivityMainSerieBinding.inflate(layoutInflater) }
+
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
 
     private val serieController: SerieController by lazy { SerieController(this) }
@@ -30,6 +32,7 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainSerieBinding.root)
+
         activityMainSerieBinding.SeriesRv.adapter = serieAdapter
         activityMainSerieBinding.SeriesRv.layoutManager = serieLayoutManager
 
@@ -46,13 +49,15 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
         activityMainSerieBinding.adicionarSerieFb.setOnClickListener {
             serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
         }
+
+
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val posicao = serieAdapter.posicao
         val serie = serieList[posicao]
 
-        return when(item.itemId) {
+        return when (item.itemId) {
 
             R.id.removerSerieMi -> {
                 with(AlertDialog.Builder(this)) {
@@ -69,13 +74,19 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
                     create()
                 }.show()
                 true
-            } else -> { false }
+            }
+            else -> {
+                false
+            }
         }
     }
+
     override fun onSerieClick(posicao: Int) {
         val serie = serieList[posicao]
         val consultarTemporadasIntent = Intent(this, MainTemporadaActivity::class.java)
         consultarTemporadasIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(consultarTemporadasIntent)
     }
+
+
 }

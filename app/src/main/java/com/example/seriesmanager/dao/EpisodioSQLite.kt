@@ -1,10 +1,10 @@
 package com.example.seriesmanager.dao
-
+/*
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.seriesmanager.model.Episodio
-
+/*
 class EpisodioSQLite(contexto: Context): EpisodioDao {
     private val bdSeries: SQLiteDatabase = DbBuilder(contexto).getSeriesBD()
 
@@ -75,3 +75,4 @@ class EpisodioSQLite(contexto: Context): EpisodioDao {
         return int != 0
     }
 }
+*/

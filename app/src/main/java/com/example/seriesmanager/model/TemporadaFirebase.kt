@@ -10,11 +10,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class TemporadaFirebase: TemporadaDao {
-    companion object {
-        private val BD_SERIES_MANAGER = "temporadas"
-    }
-    private val temporadaRTDB = Firebase.database.getReference(BD_SERIES_MANAGER)
+class TemporadaFirebase(serie: Serie): TemporadaDao {
+
+    private val temporadaRTDB = Firebase.database.getReference(serie.nome)
     private val temporadaList: MutableList<Temporada> = mutableListOf()
 
     init {
@@ -79,7 +77,6 @@ class TemporadaFirebase: TemporadaDao {
     }
 
     private fun criarOuAtualizarTemporada(temporada: Temporada) {
-        val noTemporada: String = temporada.nomeSerie + temporada.numeroSequencial
-        temporadaRTDB.child(noTemporada).setValue(temporada)
+        temporadaRTDB.child(temporada.nomeSerie ).setValue(temporada)
     }
 }
