@@ -3,6 +3,7 @@ package com.example.seriesmanager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.seriesmanager.databinding.ActivityAutenticacaoBinding
 
 class AutenticacaoActivity : AppCompatActivity() {
@@ -14,14 +15,30 @@ class AutenticacaoActivity : AppCompatActivity() {
         setContentView(activityAutenticacaoBinding.root)
         supportActionBar?.subtitle = "Autenticação"
 
-        //Botão Cadatrar Usuário - Redirecionando para página de cadastro
-        activityAutenticacaoBinding.cadastrarUsuarioBt.setOnClickListener {
-            startActivity(Intent(this, CadastrarUsuarioActivity::class.java))
+        with(activityAutenticacaoBinding){
+            //Botão Cadatrar Usuário - Redirecionando para página de cadastro
+            cadastrarUsuarioBt.setOnClickListener {
+                startActivity(Intent(this@AutenticacaoActivity, CadastrarUsuarioActivity::class.java))
+            }
+            //Botão Recuperar Senha - Redirecionando para página de Recuperação
+            recuperarSenhabt.setOnClickListener {
+                startActivity(Intent(this@AutenticacaoActivity, RecuperarSenhaActivity::class.java))
+            }
+
+            // Botão Entrar
+            entrarBt.setOnClickListener {
+                val email = editTextEmail.text.toString()
+                val senha = editTextSenha.text.toString()
+                AutenticacaoFirebase.firebaseAuth.signInWithEmailAndPassword(email,senha).addOnSuccessListener {
+                    Toast.makeText(this@AutenticacaoActivity, "Usuário autenticado", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@AutenticacaoActivity, MainSerieActivity::class.java))
+                    finish()
+                }.addOnFailureListener{
+                    Toast.makeText(this@AutenticacaoActivity, "Usuário ou senha inválido",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        //Botão Recuperar Senha - Redirecionando para página de Recuperação
-        activityAutenticacaoBinding.recuperarSenhabt.setOnClickListener {
-            startActivity(Intent(this, RecuperarSenhaActivity::class.java))
-        }
+
     }
 
 

@@ -2,6 +2,7 @@ package com.example.seriesmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -52,7 +53,19 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
 
 
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId){
+
+        R.id.logout -> {
+            AutenticacaoFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }else -> {false}
+    }
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val posicao = serieAdapter.posicao
         val serie = serieList[posicao]
@@ -86,6 +99,13 @@ class MainSerieActivity : AppCompatActivity(), OnSerieClickListener {
         val consultarTemporadasIntent = Intent(this, MainTemporadaActivity::class.java)
         consultarTemporadasIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(consultarTemporadasIntent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(AutenticacaoFirebase.firebaseAuth.currentUser == null){
+            finish()
+        }
     }
 
 
